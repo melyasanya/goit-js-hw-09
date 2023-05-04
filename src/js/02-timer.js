@@ -28,12 +28,16 @@ flatpickr('#datetime-picker', options, {});
 
 const createTimer = function () {
   const chosenMili = new Date(result).getTime();
-  setInterval(() => {
+  const timeInterval = setInterval(() => {
     const difference = chosenMili - new Date().getTime();
-    days.textContent = convertMs(difference).days;
-    hours.textContent = convertMs(difference).hours;
-    minutes.textContent = convertMs(difference).minutes;
-    seconds.textContent = convertMs(difference).seconds;
+    console.log(difference);
+    if (difference < 999) {
+      clearInterval(timeInterval);
+    }
+    days.textContent = addLeadingZero(convertMs(difference).days);
+    hours.textContent = addLeadingZero(convertMs(difference).hours);
+    minutes.textContent = addLeadingZero(convertMs(difference).minutes);
+    seconds.textContent = addLeadingZero(convertMs(difference).seconds);
   }, 1000);
 };
 
@@ -56,4 +60,8 @@ function convertMs(ms) {
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
+}
+
+function addLeadingZero(value) {
+  return String(value).padStart(2, '0');
 }
