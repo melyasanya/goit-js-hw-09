@@ -1,5 +1,10 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
+Notify.init({
+  position: 'center-center',
+});
 
 let result;
 const options = {
@@ -14,7 +19,7 @@ const options = {
     if (resultMili > currentMili) {
       startBtn.disabled = false;
     } else {
-      window.alert('Please choose a date in the future');
+      Notify.warning('Please choose a date in the future');
     }
   },
 };
@@ -24,13 +29,14 @@ const minutes = document.querySelector('[data-minutes]');
 const seconds = document.querySelector('[data-seconds]');
 const startBtn = document.querySelector('[data-start]');
 
+startBtn.disabled = true;
+
 flatpickr('#datetime-picker', options, {});
 
 const createTimer = function () {
   const chosenMili = new Date(result).getTime();
   const timeInterval = setInterval(() => {
     const difference = chosenMili - new Date().getTime();
-    console.log(difference);
     if (difference < 999) {
       clearInterval(timeInterval);
     }
