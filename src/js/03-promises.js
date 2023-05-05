@@ -37,3 +37,5 @@ form.addEventListener('submit', event => {
 
   event.currentTarget.reset();
 });
+
+console.log();
