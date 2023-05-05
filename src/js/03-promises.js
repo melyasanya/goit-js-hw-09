@@ -21,7 +21,7 @@ function createPromise(position, delay) {
 form.addEventListener('submit', event => {
   event.preventDefault();
   const number = amount.value;
-  let delayFinal = Number(delay.value);
+  let delayFinal = Number(delay.value) - Number(step.value);
   for (let i = 1; i <= number; i += 1) {
     delayFinal += Number(step.value);
     createPromise(i, delayFinal)
